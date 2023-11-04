@@ -2,23 +2,29 @@ import SingleDayComp from "./SingleDayComp";
 import Carousel from "react-bootstrap/Carousel";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import { useRef, useEffect } from "react";
+import { useEffect, useState } from "react";
 import API_KEY from "./api";
-// import { API_16 } from "./api";
 
 const NextDaysComp = ({ lon, lat }) => {
-   const windowWidth = useRef(window.innerWidth);
-   const itemAmount = function () {
-      if (windowWidth <= 576) {
-         return 2;
-      } else {
-         return 4;
+   const [data, setData] = useState(null);
+   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+   const numCarosel = function () {
+      // get the length of list and decide the number of carolels to be rendered
+      if (data) {
+         if (windowWidth <= 576) {
+            return data.length / 2;
+         } else {
+            return data.length / 4;
+         }
       }
    };
+   const [currnetCarosel, setCurrnetCarosel] = useState(0);
 
+   // retreave data asd set data using userState
    useEffect(() => {
       fetch(
-         `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+         `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
       )
          .then((response) => {
             if (!response.ok) {
@@ -26,50 +32,85 @@ const NextDaysComp = ({ lon, lat }) => {
             }
             return response.json();
          })
-         .then((data) => {
-            console.log("fetch went fine", data);
+         .then((output) => {
+            console.log("fetch went fine", output);
+            setData(output.list);
          })
          .catch((err) => console.log("ERROR!", err));
    }, [lon, lat]);
 
-   console.log("inner width: ", windowWidth, itemAmount());
+   // handle the width of the window
+   useEffect(() => {
+      const handleResize = () => {
+         setWindowWidth(window.innerWidth);
+      };
+
+      window.addEventListener("resize", handleResize);
+
+      // cleanup function
+      return () => {
+         window.removeEventListener("resize", handleResize);
+      };
+   }, []);
+
+   // decides how many carosel items should be in a carosel slide
+   const itemAmountCarosel = function () {
+      if (windowWidth <= 576) {
+         return 2;
+      } else {
+         return 4;
+      }
+   };
+
    return (
       <>
          <div className="bg-info">
-            <h3 className="border-bottom py-3 ps-2 text-white mb-3">
+            <h3 className="border-bottom py-3 ps-2 text-white mb-0">
                Next 16 days
             </h3>
-            <Carousel className="py-3">
-               <Carousel.Item>
-                  <Container fluid>
-                     <Row>
-                        <SingleDayComp day="1" />
-                        <SingleDayComp day="2" />
-                        <SingleDayComp day="3" />
-                        <SingleDayComp day="4" />
-                     </Row>
-                  </Container>
-               </Carousel.Item>
-               <Carousel.Item>
-                  <Container fluid>
-                     <Row>
-                        <SingleDayComp day="5" />
-                        <SingleDayComp day="6" />
-                        <SingleDayComp day="7" />
-                        <SingleDayComp day="8" />
-                     </Row>
-                  </Container>
-               </Carousel.Item>
-               <Carousel.Item>
-                  <Container fluid>
-                     <Row>
-                        <SingleDayComp day="9" />
-                        <SingleDayComp day="10" />
-                        <SingleDayComp day="11" />
-                        <SingleDayComp day="12" />
-                     </Row>
-                  </Container>
-               </Carousel.Item>
+            <Carousel
+               className="pb-3"
+               onSlid={(incommingIndex) => {
+                  // updata current carosel
+                  setCurrnetCarosel(incommingIndex);
+               }}
+            >
+               {data &&
+                  //  create an array with undefined values to fit the length of carosel items
+                  [...Array(numCarosel())].map((e, i) => {
+                     return (
+                        <Carousel.Item key={i}>
+                           <Container fluid>
+                              <Row>
+                                 {/* slice the main array and populate data on the carosel item */}
+                                 {data
+                                    .slice(
+                                       currnetCarosel * itemAmountCarosel(),
+                                       itemAmountCarosel() * currnetCarosel +
+                                          itemAmountCarosel()
+                                    )
+                                    .map((day) => {
+                                       return (
+                                          <SingleDayComp
+                                             key={day.dt}
+                                             day={day.dt}
+                                             date={day.dt_txt}
+                                             temp={day.main.temp}
+                                             temp_min={day.main.temp_min}
+                                             temp_max={day.main.temp_max}
+                                             weather={day.weather[0].main}
+                                             description={
+                                                day.weather[0].description
+                                             }
+                                             icon={day.weather[0].icon}
+                                          />
+                                       );
+                                    })}
+                              </Row>
+                           </Container>
+                        </Carousel.Item>
+                     );
+                  })}
             </Carousel>
          </div>
       </>
