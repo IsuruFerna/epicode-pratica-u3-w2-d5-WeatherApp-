@@ -27,4 +27,5 @@
 .App {
    background: #add5ae;
    background: radial-gradient(at left top, #add5ae, #1a18b7);
+   min-height: 100vh;
 }
