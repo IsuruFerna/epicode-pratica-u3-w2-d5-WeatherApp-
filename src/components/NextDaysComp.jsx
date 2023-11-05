@@ -5,8 +5,9 @@ import Row from "react-bootstrap/Row";
 import { useEffect, useState } from "react";
 import API_KEY from "./api";
 
-const NextDaysComp = ({ lon, lat }) => {
+const NextDaysComp = ({ lon, lat, getIcon }) => {
    const [data, setData] = useState(null);
+   const [city, setCity] = useState(null);
    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
    const numCarosel = function () {
@@ -35,6 +36,7 @@ const NextDaysComp = ({ lon, lat }) => {
          .then((output) => {
             console.log("fetch went fine", output);
             setData(output.list);
+            setCity(output.city.name);
          })
          .catch((err) => console.log("ERROR!", err));
    }, [lon, lat]);
@@ -66,7 +68,7 @@ const NextDaysComp = ({ lon, lat }) => {
       <>
          <div className="bg-info">
             <h3 className="border-bottom py-3 ps-2 text-white mb-0">
-               Next 16 days
+               Next Hours in {city}
             </h3>
             <Carousel
                className="pb-3"
@@ -103,6 +105,8 @@ const NextDaysComp = ({ lon, lat }) => {
                                                 day.weather[0].description
                                              }
                                              icon={day.weather[0].icon}
+                                             humidity={day.main.humidity}
+                                             getIcon={getIcon}
                                           />
                                        );
                                     })}

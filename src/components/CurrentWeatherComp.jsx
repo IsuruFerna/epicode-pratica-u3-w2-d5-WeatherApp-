@@ -5,11 +5,30 @@ import Image from "react-bootstrap/Image";
 import { useEffect, useState } from "react";
 import API_KEY from "./api";
 
-const CurrentWeatherComp = ({ lon, lat }) => {
+// import Datetime from "react-datetime";
+// import "react-datetime/css/react-datetime.css";
+// import DateTimePicker from "react-datetime-picker";
+
+const CurrentWeatherComp = ({ lon, lat, getIcon }) => {
    const [city, setCity] = useState(null);
    const [weather, setWeather] = useState(null);
    const [description, setDescription] = useState(null);
    const [temp, setTemp] = useState(null);
+   const [icon, setIcon] = useState(null);
+   const [feelsLike, setFeelsLike] = useState(null);
+
+   // generate date according to a format
+   const date = new Date();
+   const formattedDate = `${date.getDate()} ${date.toLocaleDateString(
+      "default",
+      { month: "short" }
+   )}`;
+
+   // console.log("this is date", date);
+   // console.log("icons: ", icons);
+
+   // i can get the coutry on sys.country or the city and publish a picture on currenet weather as a background
+   // I could use sys.country to get current local time of the city
 
    useEffect(() => {
       fetch(
@@ -27,12 +46,15 @@ const CurrentWeatherComp = ({ lon, lat }) => {
             setWeather(data.weather[0].main);
             setDescription(data.weather[0].description);
             setTemp(data.main.temp);
+            setIcon(getIcon(data.weather[0].description.toString()));
+            setFeelsLike(data.main.feels_like);
          })
          .catch((err) => console.log("ERROR", err));
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [lon, lat]);
 
-   console.log("seted data: ", city, weather, description, temp);
+   // console.log("seted data: ", city, weather, description, temp);
+   // console.log("this is the icon:", icon);
 
    return (
       <Container fluid>
@@ -40,16 +62,13 @@ const CurrentWeatherComp = ({ lon, lat }) => {
             <Col sx={12} className="tmp-color">
                <p className="fw-bold mt-3 mb-0 mx-3 text-white">{city}</p>
                <p className="my-0 text-white mx-3">
-                  <small>10:35"fix time"</small>
+                  <small>{formattedDate}</small>
                </p>
             </Col>
             <Col sx={12} className="tmp-color">
                <Row className="mb-3">
                   <Col className="d-flex">
-                     <Image
-                        className="w-50 p-1 me-2 p-2"
-                        src="assets/daily_mood/sunny.png"
-                     />
+                     <Image className="w-50 p-1 me-2 p-2" src={icon} />
                      <h1 className="ms-1 p-1 text-white">
                         {temp ? temp.toFixed(1) : ""}°C
                      </h1>
@@ -59,7 +78,9 @@ const CurrentWeatherComp = ({ lon, lat }) => {
                         {description}
                      </h6>
                      <p className="m-0">
-                        <small>Precipita 24°</small>
+                        <small>
+                           Feels like {feelsLike ? feelsLike.toFixed(1) : ""}°
+                        </small>
                      </p>
                   </Col>
                </Row>

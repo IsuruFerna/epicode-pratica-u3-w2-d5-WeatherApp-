@@ -10,29 +10,38 @@ const SingleDayComp = ({
    weather,
    icon,
    description,
+   humidity,
+   getIcon,
 }) => {
+   const currentDate = new Date(date);
+   const formattedDate = `${currentDate.getDate()} ${currentDate.toLocaleDateString(
+      "default",
+      { month: "short" }
+   )}`;
+   // `http://openweathermap.org/img/wn/${icon}@4x.png`
+
    return (
       <Col xs={6} sm={3}>
          <div className="d-flex flex-column align-items-center justify-content-center text-white glass my-4">
-            <p className="mt-3">{date}</p>
+            <p className="mt-3">{formattedDate}</p>
             <Image
                className="w-50"
                fluid
-               src={`http://openweathermap.org/img/wn/${icon}@4x.png`}
+               src={getIcon(description.toString())}
                alt="daily-mood"
             />
             <p className="mb-0">{weather}</p>
             <p className="mt-0">
                <small>{description}</small>
             </p>
-            <p className="mb-0">
-               <small>{temp_max.toFixed(1)}°C</small>
+            <p className="my-0 fw-bold fs-5">{temp.toFixed(1)}°C</p>
+            <p className="my-0">
+               <small>Max: {temp_max.toFixed(1)}°C</small>
             </p>
-            <p className="my-0 fw-bold">{temp.toFixed(1)}°C</p>
-            <p className="mt-0">
-               <small>{temp_min.toFixed(1)}°C</small>
+            <p className="mt-0 mb-1">
+               <small>Low: {temp_min.toFixed(1)}°C</small>
             </p>
-            <p>22%</p>
+            <p className="mt-0">{humidity}%</p>
          </div>
       </Col>
    );
