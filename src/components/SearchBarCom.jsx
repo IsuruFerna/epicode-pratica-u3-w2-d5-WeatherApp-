@@ -41,6 +41,7 @@ const SearchBarComp = function ({ setLon, setLat }) {
    const handleSubmit = (e) => {
       e.preventDefault();
       setCity(e.target.value);
+      e.target.reset();
    };
 
    return (
