@@ -44,8 +44,8 @@ const SearchBarComp = function ({ setLon, setLat }) {
    };
 
    return (
-      <Container>
-         <Row className="justify-content-center m-4">
+      <Container className="glass-main" fluid>
+         <Row className="justify-content-center p-4">
             <Col xs={12} md={8}>
                <Form onSubmit={handleSubmit}>
                   <InputGroup className="mb-3">
@@ -55,7 +55,7 @@ const SearchBarComp = function ({ setLon, setLat }) {
                         aria-describedby="basic-addon2"
                         onChange={handleChange}
                      />
-                     <Button variant="outline-success" id="button-addon2">
+                     <Button variant="primary" id="button-addon2">
                         Search
                      </Button>
                   </InputGroup>

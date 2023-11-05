@@ -11,8 +11,10 @@ function App() {
    // track the current position and set these values
    const [lon, setLon] = useState(-0.1276474);
    const [lat, setLat] = useState(51.5073219);
+   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
    // get the icon corresponding to the weather
+   // icons are not perfect and sometimes are not completely relavant sometimes but I wanted to try and save little bit of time. Replacing the images in assets fix this issue
    const getIcon = function (weather) {
       for (let i = 0; i < icons.weather_conditions.length; i++) {
          if (
@@ -30,10 +32,21 @@ function App() {
       <div className="App">
          <header>
             <SearchBarComp setLon={setLon} setLat={setLat} />
-            <CurrentWeatherComp lon={lon} lat={lat} getIcon={getIcon} />
+            <CurrentWeatherComp
+               lon={lon}
+               lat={lat}
+               getIcon={getIcon}
+               windowWidth={windowWidth}
+            />
          </header>
          <main>
-            <NextDaysComp lon={lon} lat={lat} getIcon={getIcon} />
+            <NextDaysComp
+               lon={lon}
+               lat={lat}
+               getIcon={getIcon}
+               windowWidth={windowWidth}
+               setWindowWidth={setWindowWidth}
+            />
          </main>
       </div>
    );

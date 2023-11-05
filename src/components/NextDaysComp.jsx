@@ -5,10 +5,10 @@ import Row from "react-bootstrap/Row";
 import { useEffect, useState } from "react";
 import API_KEY from "./api";
 
-const NextDaysComp = ({ lon, lat, getIcon }) => {
+const NextDaysComp = ({ lon, lat, getIcon, windowWidth, setWindowWidth }) => {
    const [data, setData] = useState(null);
    const [city, setCity] = useState(null);
-   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+   // const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
    const numCarosel = function () {
       // get the length of list and decide the number of carolels to be rendered
@@ -53,7 +53,7 @@ const NextDaysComp = ({ lon, lat, getIcon }) => {
       return () => {
          window.removeEventListener("resize", handleResize);
       };
-   }, []);
+   }, [setWindowWidth]);
 
    // decides how many carosel items should be in a carosel slide
    const itemAmountCarosel = function () {
@@ -66,7 +66,7 @@ const NextDaysComp = ({ lon, lat, getIcon }) => {
 
    return (
       <>
-         <div className="bg-info">
+         <div>
             <h3 className="border-bottom py-3 ps-2 text-white mb-0">
                Next Hours in {city}
             </h3>

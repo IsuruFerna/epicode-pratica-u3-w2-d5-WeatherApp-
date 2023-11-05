@@ -22,7 +22,7 @@ const SingleDayComp = ({
 
    return (
       <Col xs={6} sm={3}>
-         <div className="d-flex flex-column align-items-center justify-content-center text-white glass my-4">
+         <div className="d-flex flex-column align-items-center justify-content-center text-white glass my-4 text-shadow-1">
             <p className="mt-3">{formattedDate}</p>
             <Image
                className="w-50"
