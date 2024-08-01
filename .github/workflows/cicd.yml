@@ -13,13 +13,10 @@ permissions:
 jobs:
    build-and-deploy:
       runs-on: ubuntu-latest
+      env:
+         REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
 
       steps:
-         - name: Print env Variable
-           run: echo $REACT_APP_API_KEY
-           env:
-              REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
-
          - name: Checkout Source
            uses: actions/checkout@v4
          - name: Setup Node
