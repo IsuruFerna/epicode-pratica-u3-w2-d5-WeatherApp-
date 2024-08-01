@@ -86,9 +86,15 @@ const CurrentWeatherComp = ({ lon, lat, getIcon, windowWidth }) => {
             // setWeather(data.weather[0].main);
             setDescription(data.weather[0].description);
             setTemp(data.main.temp);
-            setIcon(getIcon(data.weather[0].description.toString()));
+            setIcon(
+               `${process.env.PUBLIC_URL}/${getIcon(
+                  data.weather[0].description.toString()
+               )}`
+            );
             setFeelsLike(data.main.feels_like);
             getCityImage(data.name);
+
+            console.log("this is icon: ", icon);
          })
          .catch((err) => console.log("ERROR", err));
 

@@ -20,6 +20,8 @@ const SingleDayComp = ({
    )}`;
    // `http://openweathermap.org/img/wn/${icon}@4x.png`
 
+   console.log("this is each icon: ", getIcon(description.toString()));
+
    return (
       <Col xs={6} sm={3}>
          <div className="d-flex flex-column align-items-center justify-content-center text-white glass my-4 text-shadow-1">
@@ -27,7 +29,9 @@ const SingleDayComp = ({
             <Image
                className="w-50"
                fluid
-               src={getIcon(description.toString())}
+               src={`${process.env.PUBLIC_URL}/${getIcon(
+                  description.toString()
+               )}`}
                alt="daily-mood"
             />
             <p className="mb-0">{weather}</p>

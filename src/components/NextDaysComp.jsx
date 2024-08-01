@@ -26,7 +26,7 @@ const NextDaysComp = ({ lon, lat, getIcon, windowWidth, setWindowWidth }) => {
    useEffect(() => {
       const API_KEY = process.env.REACT_APP_API_KEY;
       fetch(
-         `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
+         `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
       )
          .then((response) => {
             if (!response.ok) {
