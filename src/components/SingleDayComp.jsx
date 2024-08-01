@@ -20,8 +20,6 @@ const SingleDayComp = ({
    )}`;
    // `http://openweathermap.org/img/wn/${icon}@4x.png`
 
-   console.log("this is each icon: ", getIcon(description.toString()));
-
    return (
       <Col xs={6} sm={3}>
          <div className="d-flex flex-column align-items-center justify-content-center text-white glass my-4 text-shadow-1">

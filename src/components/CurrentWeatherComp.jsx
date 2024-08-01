@@ -16,7 +16,9 @@ const CurrentWeatherComp = ({ lon, lat, getIcon, windowWidth }) => {
    const [temp, setTemp] = useState(null);
    const [icon, setIcon] = useState(null);
    const [feelsLike, setFeelsLike] = useState(null);
-   const [imgBackground, setImgBackground] = useState(null);
+   const [imgBackground, setImgBackground] = useState(
+      `${process.env.PUBLIC_URL}/assets/cities/roma.jpg`
+   );
 
    // generate date according to a format
    const date = new Date();
@@ -59,17 +61,22 @@ const CurrentWeatherComp = ({ lon, lat, getIcon, windowWidth }) => {
             // set image based on the window width
             setImgBackground(chooseImage(windowWidth, data.photos[0].image));
          } else {
+            // use default image as London in case API cause problems
+            setImgBackground(
+               `${process.env.PUBLIC_URL}/assets/cities/roma.jpg`
+            );
+
             throw new Error("Error getting image data");
          }
       } catch (error) {
          console.log("ERROR: ", error);
       }
+
+      console.log("this is city image: ", imgBackground);
    };
 
    useEffect(() => {
       const API_KEY = process.env.REACT_APP_API_KEY;
-
-      console.log("this is the token: ", API_KEY);
 
       fetch(
          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
@@ -108,7 +115,7 @@ const CurrentWeatherComp = ({ lon, lat, getIcon, windowWidth }) => {
    return (
       <Container className="position-relative" fluid>
          <Image
-            className="py-4 my-4"
+            className="py-4 my-4 img-bg"
             src={imgBackground ? imgBackground : ""}
             alt="background-img"
             fluid
@@ -124,8 +131,8 @@ const CurrentWeatherComp = ({ lon, lat, getIcon, windowWidth }) => {
                   </p>
                </div>
             </Col>
-            <Col sx={12}>
-               <Row className="mb-3 z-1">
+            <Col sx={12} className="hero-height">
+               <Row className="mb-3 z-1 ">
                   <Col className="d-flex">
                      <Image className="w-50 p-1 me-2 p-2" src={icon} />
                      <h1 className="ms-1 p-1 text-white text-shadow">
