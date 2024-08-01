@@ -8,6 +8,8 @@ import { useState, useEffect } from "react";
 import API_KEY from "./api";
 
 const SearchBarComp = function ({ setLon, setLat }) {
+   // const API_KEY = process.env.REACT_APP_API_KEY;
+
    const [city, setCity] = useState("London");
    //  const [lon, setLon] = useState(null);
    //  const [lat, setLat] = useState(null);

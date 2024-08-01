@@ -10,6 +10,8 @@ import API_KEY from "./api";
 // import DateTimePicker from "react-datetime-picker";
 
 const CurrentWeatherComp = ({ lon, lat, getIcon, windowWidth }) => {
+   // const API_KEY = process.env.REACT_APP_API_KEY;
+
    const [city, setCity] = useState(null);
    // const [weather, setWeather] = useState(null);
    const [description, setDescription] = useState(null);
