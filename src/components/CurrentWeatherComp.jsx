@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 // import DateTimePicker from "react-datetime-picker";
 
 const CurrentWeatherComp = ({ lon, lat, getIcon, windowWidth }) => {
-   const API_KEY = process.env.REACT_APP_API_KEY;
    const [city, setCity] = useState(null);
    // const [weather, setWeather] = useState(null);
    const [description, setDescription] = useState(null);
@@ -68,6 +67,10 @@ const CurrentWeatherComp = ({ lon, lat, getIcon, windowWidth }) => {
    };
 
    useEffect(() => {
+      const API_KEY = process.env.REACT_APP_API_KEY;
+
+      console.log("this is the token: ", API_KEY);
+
       fetch(
          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
       )
