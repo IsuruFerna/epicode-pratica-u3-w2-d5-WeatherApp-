@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useState, useEffect } from "react";
-import API_KEY from "./api";
+// import API_KEY from "./api";
 
 const SearchBarComp = function ({ setLon, setLat }) {
    // const API_KEY = process.env.REACT_APP_API_KEY;
@@ -14,9 +14,11 @@ const SearchBarComp = function ({ setLon, setLat }) {
    //  const [lon, setLon] = useState(null);
    //  const [lat, setLat] = useState(null);
 
+   const API_KEY = process.env.REACT_APP_API_KEY;
+
    useEffect(() => {
       fetch(
-         `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${API_KEY}`
+         `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${API_KEY}`
       )
          .then((response) => {
             if (!response.ok) {

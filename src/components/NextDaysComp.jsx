@@ -3,7 +3,7 @@ import Carousel from "react-bootstrap/Carousel";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { useEffect, useState } from "react";
-import API_KEY from "./api";
+// import API_KEY from "./api";
 
 const NextDaysComp = ({ lon, lat, getIcon, windowWidth, setWindowWidth }) => {
    // const API_KEY = process.env.REACT_APP_API_KEY;
@@ -26,8 +26,9 @@ const NextDaysComp = ({ lon, lat, getIcon, windowWidth, setWindowWidth }) => {
 
    // retreave data asd set data using userState
    useEffect(() => {
+      const API_KEY = process.env.REACT_APP_API_KEY;
       fetch(
-         `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
+         `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
       )
          .then((response) => {
             if (!response.ok) {

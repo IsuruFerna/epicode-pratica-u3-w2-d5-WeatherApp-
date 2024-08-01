@@ -27,7 +27,9 @@ const SingleDayComp = ({
             <Image
                className="w-50"
                fluid
-               src={getIcon(description.toString())}
+               src={`${process.env.PUBLIC_URL}/${getIcon(
+                  description.toString()
+               )}`}
                alt="daily-mood"
             />
             <p className="mb-0">{weather}</p>

@@ -29,3 +29,96 @@
    background: radial-gradient(at left top, #add5ae, #1a18b7);
    min-height: 100vh;
 }
+
+.img-bg {
+   width: 100%;
+   max-height: 200px;
+   object-fit: cover;
+}
+
+.hero-height {
+   width: 100%;
+   position: relative;
+}
+
+.hero-height::after {
+   content: "";
+   display: block;
+   width: 100%;
+   height: 200px;
+   position: absolute;
+   top: 100;
+   left: 0;
+   background: rgba(255, 255, 255, 0.11);
+   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+   backdrop-filter: blur(4px);
+   -webkit-backdrop-filter: blur(4.8px);
+}
+
+/* ****************************** extra extra large screen ************************************* */
+@media only screen and (min-width: 1550px) {
+   .img-bg {
+      max-height: 650px;
+   }
+   .hero-height::after {
+      height: 150px;
+   }
+}
+@media only screen and (min-width: 1530px) and (max-width: 1549.98px) {
+   .img-bg {
+      max-height: 400px;
+   }
+   .hero-height::after {
+      display: none;
+   }
+}
+/* ****************************** extra large screen ************************************* */
+@media only screen and (min-width: 1200px) and (max-width: 1529.98px) {
+   .img-bg {
+      max-height: 370px;
+   }
+   .hero-height::after {
+      display: none;
+   }
+}
+/* ****************************** large screen ************************************* */
+@media only screen and (min-width: 992px) and (max-width: 1199.98px) {
+   .img-bg {
+      max-height: 300px;
+   }
+   .hero-height::after {
+      height: 10px;
+   }
+}
+/* ****************************** medium screen ************************************* */
+@media only screen and (min-width: 768px) and (max-width: 991.98px) {
+   .hero-height::after {
+      display: none;
+   }
+   .img-bg {
+      max-height: 250px;
+   }
+}
+/* ****************************** small screen ************************************* */
+@media only screen and (min-width: 555px) and (max-width: 767.98px) {
+   .hero-height::after {
+      height: 30px;
+   }
+   .img-bg {
+      max-height: 250px;
+   }
+}
+@media only screen and (min-width: 500px) and (max-width: 554.98px) {
+   .hero-height::after {
+      height: 190px;
+   }
+   .img-bg {
+      max-height: 350px;
+   }
+}
+/* ****************************** extra small screen ************************************* */
+@media only screen and (max-width: 500px) {
+   .img-bg {
+      max-height: 350px;
+   }
+}
