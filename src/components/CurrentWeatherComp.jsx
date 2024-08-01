@@ -98,7 +98,7 @@ const CurrentWeatherComp = ({ lon, lat, getIcon, windowWidth }) => {
    return (
       <Container className="position-relative" fluid>
          <Image
-            className="py-4 my-4"
+            className="py-4 mt-4 mb-5"
             src={imgBackground ? imgBackground : ""}
             alt="background-img"
             fluid
