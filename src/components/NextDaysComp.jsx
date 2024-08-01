@@ -3,9 +3,10 @@ import Carousel from "react-bootstrap/Carousel";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import { useEffect, useState } from "react";
-import API_KEY from "./api";
+// import API_KEY from "./api";
 
 const NextDaysComp = ({ lon, lat, getIcon, windowWidth, setWindowWidth }) => {
+   const API_KEY = process.env.REACT_APP_API_KEY;
    const [data, setData] = useState(null);
    const [city, setCity] = useState(null);
    // const [windowWidth, setWindowWidth] = useState(window.innerWidth);

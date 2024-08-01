@@ -3,13 +3,14 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import { useEffect, useState } from "react";
-import API_KEY from "./api";
+// import API_KEY from "./api";
 
 // import Datetime from "react-datetime";
 // import "react-datetime/css/react-datetime.css";
 // import DateTimePicker from "react-datetime-picker";
 
 const CurrentWeatherComp = ({ lon, lat, getIcon, windowWidth }) => {
+   const API_KEY = process.env.REACT_APP_API_KEY;
    const [city, setCity] = useState(null);
    // const [weather, setWeather] = useState(null);
    const [description, setDescription] = useState(null);
